@@ -33,6 +33,7 @@ Query OK, 1 row affected (0.232 sec)
 
 mysql> use new;
 Database changed
+
 mysql> create table new.student(rollno int , name varchar(50));
 Query OK, 0 rows affected (0.328 sec)
 
@@ -45,21 +46,10 @@ mysql> describe student;
 +--------+-------------+------+-----+---------+-------+
 2 rows in set (0.168 sec)
 
-mysql> create user 'sarthak'@localhost identified by 'sarthak123';
-ERROR 1396 (HY000): Operation CREATE USER failed for 'sarthak'@'localhost'
-mysql> create user 'sarthak'@localhost identified by 'root'
-    -> \c
-mysql> create user 'sarthak'@localhost identified by 'root';
-ERROR 1396 (HY000): Operation CREATE USER failed for 'sarthak'@'localhost'
-mysql> SELECT User, Host FROM mysql.user WHERE User = 'sarthak' AND Host = 'localhost';
-+---------+-----------+
-| User    | Host      |
-+---------+-----------+
-| sarthak | localhost |
-+---------+-----------+
-1 row in set (0.009 sec)
+mysql> create user 'siddesh'@localhost identified by 'siddesh123';
+Query OK, 0 rows affected (0.120 sec)
 
-mysql> grant all privileges on new.* to sarthak@localhost;
+mysql> grant all privileges on new.* to 'siddesh'@'localhost';
 Query OK, 0 rows affected (0.128 sec)
 
 mysql> alter table student add address varchar(50);
@@ -76,8 +66,6 @@ mysql> desc student;
 +---------+-------------+------+-----+---------+-------+
 3 rows in set (0.014 sec)
 
-mysql> ALTER TABLE students MODIFY rolno INT NOT NULL;
-ERROR 1146 (42S02): Table 'new.students' doesn't exist
 mysql> alter table student modify rollno int NOT NULL;
 Query OK, 0 rows affected (0.340 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -93,40 +81,13 @@ mysql> desc student;
 3 rows in set (0.011 sec)
 
 mysql> INSERT INTO student (rollno, name, address)
-    -> VALUES (1, 'John Doe', '123 Main St');
+    -> VALUES (1, 'Aarav Patil', 'Pune, MH');
 Query OK, 1 row affected (0.158 sec)
 
 mysql> insert into student (rollno, name, address)
-    -> values (2, 'Smith Arth','456 Main St');
+    -> values (2, 'Neha Sharma','Mumbai, MH');
 Query OK, 1 row affected (0.147 sec)
 
-mysql> desc student;
-+---------+-------------+------+-----+---------+-------+
-| Field   | Type        | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| rollno  | int         | NO   |     | NULL    |       |
-| name    | varchar(50) | YES  |     | NULL    |       |
-| address | varchar(50) | YES  |     | NULL    |       |
-+---------+-------------+------+-----+---------+-------+
-3 rows in set (0.012 sec)
-
-mysql> set primary key
-    -> 1;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key
-1' at line 1
-mysql> set primary key 1;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key 1' at line 1
-mysql> set primary key 1
-    -> \c
-mysql> alter table student
-    -> add primary key(1);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1)' at line 2
-mysql> alter table student
-    -> add primary key (1);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1)' at line 2
-mysql> ALTER TABLE my_table
-    -> ADD PRIMARY KEY (id);
-ERROR 1146 (42S02): Table 'new.my_table' doesn't exist
 mysql> alter table student
     -> add primary key (rollno);
 Query OK, 0 rows affected (0.791 sec)
@@ -143,10 +104,10 @@ mysql> desc student;
 3 rows in set (0.014 sec)
 
 mysql> select * from student;
-+--------+------------+-------------+
-| rollno | name       | address     |
-+--------+------------+-------------+
-|      1 | John Doe   | 123 Main St |
-|      2 | Smith Arth | 456 Main St |
-+--------+------------+-------------+
++--------+-------------+------------+
+| rollno | name        | address    |
++--------+-------------+------------+
+|      1 | Aarav Patil | Pune, MH   |
+|      2 | Neha Sharma | Mumbai, MH |
++--------+-------------+------------+
 2 rows in set (0.059 sec)
