@@ -1,0 +1,194 @@
+
+mysql> drop database bank;
+Query OK, 4 rows affected (0.04 sec)
+
+mysql> create database operation;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use operation
+Database changed
+mysql> CREATE TABLE Customer (
+    ->     CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     Name VARCHAR(100) NOT NULL,
+    ->     Address VARCHAR(255),
+    ->     ContactNo VARCHAR(15) UNIQUE,
+    ->     Email VARCHAR(100) UNIQUE
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE Account (
+    ->     AccountNumber INT AUTO_INCREMENT PRIMARY KEY,
+    ->     CustomerID INT NOT NULL,
+    ->     AccountType VARCHAR(50) NOT NULL,
+    ->     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Employee (
+    ->     EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     Name VARCHAR(100) NOT NULL,
+    ->     Salary DECIMAL(10, 2) NOT NULL,
+    ->     Role VARCHAR(50) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> alter table customer add DateofBrith DATE;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee MODIFY salary DECIMAL(15,2) NOT NULL;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table account CHANGE AccountType Account_Type VARCHAR(50) NOT NULL;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| CustomerID  | int          | NO   | PRI | NULL    | auto_increment |
+| Name        | varchar(100) | NO   |     | NULL    |                |
+| Address     | varchar(255) | YES  |     | NULL    |                |
+| ContactNo   | varchar(15)  | YES  | UNI | NULL    |                |
+| Email       | varchar(100) | YES  | UNI | NULL    |                |
+| DateofBrith | date         | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc employee;
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| EmployeeID | int           | NO   | PRI | NULL    | auto_increment |
+| Name       | varchar(100)  | NO   |     | NULL    |                |
+| salary     | decimal(15,2) | NO   |     | NULL    |                |
+| Role       | varchar(50)   | NO   |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc account;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| AccountNumber | int         | NO   | PRI | NULL    | auto_increment |
+| CustomerID    | int         | NO   | MUL | NULL    |                |
+| Account_Type  | varchar(50) | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer drop column Address;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| CustomerID  | int          | NO   | PRI | NULL    | auto_increment |
+| Name        | varchar(100) | NO   |     | NULL    |                |
+| ContactNo   | varchar(15)  | YES  | UNI | NULL    |                |
+| Email       | varchar(100) | YES  | UNI | NULL    |                |
+| DateofBrith | date         | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer(CustomerID,Name,ContactNo,Email,DateofBrith) values('101',"Sathvik",8605035199,"sathvik@gmail.com",'2005-11-10');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(CustomerID,Name,ContactNo,Email,DateofBrith) values('102',"Dnyaneshwar",9860197171,"Dnyaneshwar@gmail.com",'2005-07-26');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(CustomerID,Name,ContactNo,Email,DateofBrith) values('103',"Abhishek",98601971,"abhishek@gmail.com",'2005-12-02');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++------------+-------------+------------+-----------------------+-------------+
+| CustomerID | Name        | ContactNo  | Email                 | DateofBrith |
++------------+-------------+------------+-----------------------+-------------+
+|        101 | Sathvik     | 8605035199 | sathvik@gmail.com     | 2005-11-10  |
+|        102 | Dnyaneshwar | 9860197171 | Dnyaneshwar@gmail.com | 2005-07-26  |
+|        103 | Abhishek    | 98601971   | abhishek@gmail.com    | 2005-12-02  |
++------------+-------------+------------+-----------------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> update customer set ContactNo='9923889699' where Name="Abhishek";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++------------+-------------+------------+-----------------------+-------------+
+| CustomerID | Name        | ContactNo  | Email                 | DateofBrith |
++------------+-------------+------------+-----------------------+-------------+
+|        101 | Sathvik     | 8605035199 | sathvik@gmail.com     | 2005-11-10  |
+|        102 | Dnyaneshwar | 9860197171 | Dnyaneshwar@gmail.com | 2005-07-26  |
+|        103 | Abhishek    | 9923889699 | abhishek@gmail.com    | 2005-12-02  |
++------------+-------------+------------+-----------------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from customer where CustomerID=103;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++------------+-------------+------------+-----------------------+-------------+
+| CustomerID | Name        | ContactNo  | Email                 | DateofBrith |
++------------+-------------+------------+-----------------------+-------------+
+|        101 | Sathvik     | 8605035199 | sathvik@gmail.com     | 2005-11-10  |
+|        102 | Dnyaneshwar | 9860197171 | Dnyaneshwar@gmail.com | 2005-07-26  |
++------------+-------------+------------+-----------------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table account add column balance int not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee
+    -> ^C
+mysql> desc employee;
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| EmployeeID | int           | NO   | PRI | NULL    | auto_increment |
+| Name       | varchar(100)  | NO   |     | NULL    |                |
+| salary     | decimal(15,2) | NO   |     | NULL    |                |
+| Role       | varchar(50)   | NO   |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc account;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| AccountNumber | int         | NO   | PRI | NULL    | auto_increment |
+| CustomerID    | int         | NO   | MUL | NULL    |                |
+| Account_Type  | varchar(50) | NO   |     | NULL    |                |
+| balance       | int         | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into account(AccountNumber,CustomerID,Account_Type,Balance) values('1000',101,"Saving",50000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into account(AccountNumber,CustomerID,Account_Type,Balance) values('1001',102,"Saving",60000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from account;
++---------------+------------+--------------+---------+
+| AccountNumber | CustomerID | Account_Type | balance |
++---------------+------------+--------------+---------+
+|          1000 |        101 | Saving       |   50000 |
+|          1001 |        102 | Saving       |   60000 |
++---------------+------------+--------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT c.Name, a.AccountNumber, a.balance FROM Customer c JOIN Account a ON c.CustomerID = a.CustomerID WHERE a.balance >= 0;
++-------------+---------------+---------+
+| Name        | AccountNumber | balance |
++-------------+---------------+---------+
+| Sathvik     |          1000 |   50000 |
+| Dnyaneshwar |          1001 |   60000 |
++-------------+---------------+---------+
+2 rows in set (0.00 sec)
+
+mysql>
