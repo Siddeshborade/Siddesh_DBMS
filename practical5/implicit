@@ -1,0 +1,14 @@
+DECLARE 
+p_price product.price%TYPE;
+BEGIN
+SELECT price 
+INTO p_price
+FROM product
+WHERE pid = 3;  -- change pid as needed
+DBMS_OUTPUT.PUT_LINE('Price fetched: ' || p_price);
+
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE('Product not found.');
+END;
+/
