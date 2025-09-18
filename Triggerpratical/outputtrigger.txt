@@ -1,0 +1,121 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Thu Sep 18 23:06:28 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Wed Sep 17 2025 11:43:03 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table client_master1(srno int,name varchar(20));
+
+Table created.
+
+SQL> create table audit_s as select * from client_master1;
+
+Table created.
+
+SQL>  insert into client_master1 values(1,'Raj');
+
+1 row created.
+
+SQL>  insert into client_master1 values(2,'Rahul');
+
+1 row created.
+
+SQL>  insert into client_master1 values(3,'Akash');
+
+1 row created.
+
+SQL> set serveroutput on
+SQL> @C:\Users\DNYANESHWAR\Desktop\Siddeshsql\triggercreation.sql
+
+Trigger created.
+
+SQL> select * from client_master1;
+
+      SRNO NAME
+---------- --------------------
+         1 Raj
+         2 Rahul
+         3 Akash
+
+SQL> update client_master1 set name = 'Sid' where srno = 2;
+
+1 row updated.
+
+SQL> select * from audit_s;
+
+      SRNO NAME
+---------- --------------------
+         2 Rahul
+
+SQL> delete from client_master1 where srno = 3;
+
+1 row deleted.
+
+SQL> select * from audit_s;
+
+      SRNO NAME
+---------- --------------------
+         2 Rahul
+         3 Akash
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table insert_backup as select * from client_master1;
+
+Table created.
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Siddeshsql\insertbackup.sql
+
+Trigger created.
+
+SQL> select * from insert_backup;
+
+      SRNO NAME
+---------- --------------------
+         1 Raj
+         2 Sid
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Siddeshsql\audit_insert1.sql
+
+Trigger created.
+
+SQL> INSERT INTO audit_s VALUES (101, 'Test');
+
+1 row created.
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Siddeshsql\audit_insert1.sql
+
+Trigger created.
+
+SQL> INSERT INTO audit_s VALUES (103, 'CheckTrigger');
+INSERT INTO audit_s VALUES (103, 'CheckTrigger')
+            *
+ERROR at line 1:
+ORA-20001: Cannot delete or insert in September
+ORA-06512: at "SYSTEM.INSERT_AUDIT_S", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.INSERT_AUDIT_S'
+
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Siddeshsql\audit_update1.sql
+
+Trigger created.
+
+SQL> UPDATE audit_s SET name = 'Rakesh' WHERE srno = 103;
+UPDATE audit_s SET name = 'Rakesh' WHERE srno = 103
+       *
+ERROR at line 1:
+ORA-20002: Cannot update or delete in September
+ORA-06512: at "SYSTEM.UPDATE_DELETE_AUDIT_S", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.UPDATE_DELETE_AUDIT_S'
+
+SQL>
