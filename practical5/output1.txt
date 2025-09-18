@@ -1,0 +1,69 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Thu Sep 18 22:24:48 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Thu Sep 18 2025 21:34:28 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table product(pid int,pname varchar2(30),price number(10,2));
+
+Table created.
+
+SQL> INSERT INTO product (pid, pname, price) VALUES (1, 'USB Speaker', 1500);
+
+1 row created.
+
+SQL> INSERT INTO product (pid, pname, price) VALUES (2, 'Wireless Mouse', 1200);
+
+1 row created.
+
+SQL> INSERT INTO product (pid, pname, price) VALUES (3, 'Gaming Keyboard', 1800);
+
+SQL> select * from product;
+
+       PID PNAME                               PRICE
+---------- ------------------------------ ----------
+         1 USB Speaker                          1500
+         2 Wireless Mouse                       1200
+         3 Gaming Keyboard                      1800
+
+SQL> set serveroutput on
+SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\implicit.sql"
+Price fetched: 1800
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\explicit1.sql"
+1,USB Speaker,1500
+2,Wireless Mouse,1200
+3,Gaming Keyboard,1800
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\parameterized.sql"
+Enter value for enter_price: 1200
+old  14:   v_input := &enter_price;
+new  14:   v_input := 1200;
+Products with price above 1200:
+1,USB Speaker,1500
+3,Gaming Keyboard,1800
+Done fetching products.
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from product;
+
+       PID PNAME                               PRICE
+---------- ------------------------------ ----------
+         1 USB Speaker                          3000
+         2 Wireless Mouse                       2400
+         3 Gaming Keyboard                      3600
+
+SQL>
