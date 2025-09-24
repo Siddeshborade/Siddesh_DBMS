@@ -43,31 +43,10 @@ Procedure created.
 SQL> set serveroutput on
 
 SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\result.sql"
-Enter value for r: 101
-old   7: r:=&r;
-new   7: r:=101;
-101Raj2nd class
-one record inserted
-
-PL/SQL procedure successfully completed.
-
-SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\result.sql"
-Enter value for r: 102
-old   7: r:=&r;
-new   7: r:=102;
-102Sarthak1st class
-one record inserted
-
-PL/SQL procedure successfully completed.
-
-SQL> @"C:\Users\Siddesh Borade\OneDrive\Desktop\Siddeshsql\result.sql"
-Enter value for r: 103
-old   7: r:=&r;
-new   7: r:=103;
-103Rahul1st class with dist.
-one record inserted
-
-PL/SQL procedure successfully completed.
+101 Raj 1st class
+102 Sarthak 1st class with dist.
+103 Rahul 1st class with dist.
+All records processed and inserted.
 
 SQL> select * from studentresult1;
 
@@ -76,5 +55,6 @@ SQL> select * from studentresult1;
        101 Raj                  2nd class
        102 Sarthak              1st class
        103 Rahul                1st class with dist.
+
 
 SQL>
