@@ -1,6 +1,76 @@
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 10
+Enter Name: Siddesh
+Enter Address: Ajmera
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 11
+Enter Name: Rohit
+Enter Address: Pune
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 12
+Enter Name: Siddhi
+Enter Address: Mumbai
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 2
+Enter Roll No to Update: 12
+Enter New Name: Rani
+Record Updated!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 3
+Enter Roll No to Delete: 12
+Record Deleted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 4
+Roll No      Name 	   Address
+10	       Siddesh 	    Ajmera
+11	        Rohit	    Pune
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 
+
 Enter password: ****
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 12
+Your MySQL connection id is 10
 Server version: 9.3.0 MySQL Community Server - GPL
 
 Copyright (c) 2000, 2025, Oracle and/or its affiliates.
@@ -25,9 +95,10 @@ mysql> show databases;
 | personalexpense    |
 | studdemo           |
 | studentdetail      |
+| studentinfo        |
 | sys                |
 +--------------------+
-11 rows in set (0.020 sec)
+12 rows in set (0.114 sec)
 
 mysql> use studdemo;
 Database changed
@@ -37,52 +108,34 @@ mysql> show tables;
 +--------------------+
 | student            |
 +--------------------+
-1 row in set (0.184 sec)
-
-mysql> select * from student;
-+--------+---------+---------+
-| rollno | Name    | Address |
-+--------+---------+---------+
-|     10 | Siddesh | pcmc    |
-+--------+---------+---------+
-1 row in set (0.082 sec)
-
-mysql> select * from student;
-+--------+---------+---------+
-| rollno | Name    | Address |
-+--------+---------+---------+
-|     10 | Siddesh | pcmc    |
-|     11 | Sarthak | pune    |
-+--------+---------+---------+
-2 rows in set (0.009 sec)
+1 row in set (0.128 sec)
 
 mysql> select * from student;
 +--------+---------+----------+
 | rollno | Name    | Address  |
 +--------+---------+----------+
-|     10 | Siddesh | pcmc     |
-|     11 | Sarthak | pune     |
-|     12 | Aryan   | Chikhali |
+|     10 | Siddesh | Ajmera   |
+|     11 | Rohit   | Pune     |
+|     12 | Siddhi  | Mumbai   |
 +--------+---------+----------+
-3 rows in set (0.010 sec)
+5 rows in set (0.010 sec)
 
 mysql> select * from student;
 +--------+---------+----------+
 | rollno | Name    | Address  |
 +--------+---------+----------+
-|     10 | Siddesh | pcmc     |
-|     11 | Sarthak | pune     |
-|     12 | Raj     | Chikhali |
+|     10 | Siddesh | Ajmera   |
+|     11 | Rohit   | Pune     |
+|     12 | Rani    | Mumbai   |
 +--------+---------+----------+
+5 rows in set (0.007 sec)
+
+mysql> select * from student;
++--------+---------+---------+
+| rollno | Name    | Address |
++--------+---------+---------+
+|     10 | Siddesh | Ajmera  |
+|     11 | Rohit   | Pune    |
++--------+---------+---------+
 3 rows in set (0.009 sec)
 
-mysql> select * from student;
-+--------+---------+----------+
-| rollno | Name    | Address  |
-+--------+---------+----------+
-|     10 | Siddesh | pcmc     |
-|     12 | Raj     | Chikhali |
-+--------+---------+----------+
-2 rows in set (0.008 sec)
-
-mysql>
