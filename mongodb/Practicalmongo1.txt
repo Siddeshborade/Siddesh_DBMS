@@ -1,0 +1,144 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68eff71b741506644dcebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.1
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-15T11:36:55.512+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use college_detail;
+switched to db college_detail
+college_detail>  db.createCollection("Student_demo");
+{ ok: 1 }
+
+college_detail> db.student_demo.insertMany([
+...   {
+...     roll_no: 11,
+...     name: "Sujal",
+...     class: "TE",
+...     marks: 75
+...   },
+...   {
+...     roll_no: 12,
+...     name: "Raj",
+...     class: "TE",
+...     marks: 65
+...   }
+... ]);
+...
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68eff7d0741506644dcebea4'),
+    '1': ObjectId('68eff7d0741506644dcebea5')
+  }
+}
+college_detail> db.student_demo.find();
+[
+  {
+    _id: ObjectId('68eff7d0741506644dcebea4'),
+    roll_no: 11,
+    name: 'Sujal',
+    class: 'TE',
+    marks: 75
+  },
+  {
+    _id: ObjectId('68eff7d0741506644dcebea5'),
+    roll_no: 12,
+    name: 'Raj',
+    class: 'TE',
+    marks: 65
+  }
+]
+college_detail> db.student_demo.insertOne({
+...   roll_no: 13,
+...   name: "Aarav",
+...   class: "TE",
+...   marks: 85
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68eff80c741506644dcebea6')
+}
+college_detail> db.student_demo.updateOne(
+...   { name: "Sujal" },
+...   { $set: { marks: 90 } }
+... );
+...
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+college_detail> db.student_demo.updateMany(
+...   { class: "TE" },
+...   { $set: { grade: "A" } }
+... );
+...
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+college_detail> db.student_demo.find().pretty();
+[
+  {
+    _id: ObjectId('68eff7d0741506644dcebea4'),
+    roll_no: 11,
+    name: 'Sujal',
+    class: 'TE',
+    marks: 90,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('68eff7d0741506644dcebea5'),
+    roll_no: 12,
+    name: 'Raj',
+    class: 'TE',
+    marks: 65,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('68eff80c741506644dcebea6'),
+    roll_no: 13,
+    name: 'Aarav',
+    class: 'TE',
+    marks: 85,
+    grade: 'A'
+  }
+]
+college_detail> db.student_demo.deleteOne({ name: "Raj" });
+{ acknowledged: true, deletedCount: 1 }
+college_detail> db.student_demo.find().pretty();
+[
+  {
+    _id: ObjectId('68eff7d0741506644dcebea4'),
+    roll_no: 11,
+    name: 'Sujal',
+    class: 'TE',
+    marks: 90,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('68eff80c741506644dcebea6'),
+    roll_no: 13,
+    name: 'Aarav',
+    class: 'TE',
+    marks: 85,
+    grade: 'A'
+  }
+]
+college_detail>
