@@ -1,0 +1,452 @@
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68eff974aa9816d79acebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.1
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-15T11:36:55.512+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use cricket_database;
+switched to db cricket_database
+cricket_database> db.createCollection("player")
+{ ok: 1 }
+cricket_database> db.player.insertMany([
+...   {
+...     playerid: 1,
+...     name: "Rohit Sharma",
+...     role: "Batter",
+...     battingstyle: "Right-handed",
+...     bowlingstyle: "Right-arm off break",
+...     team: "Mumbai Indians",
+...     matches_played: 272,
+...     runs: 7046,
+...     strike_rate: 132.07,
+...     wickets: 15
+...   },
+...   {
+...     playerid: 2,
+...     name: "Jasprit Bumrah",
+...     role: "Bowler",
+...     battingstyle: "Right-handed",
+...     bowlingstyle: "Right-arm fast",
+...     team: "Mumbai Indians",
+...     matches_played: 142,
+...     runs: 69,
+...     strike_rate: null,
+...     wickets: 181
+...   },
+...   {
+...     playerid: 3,
+...     name: "Suryakumar Yadav",
+...     role: "Batter",
+...     battingstyle: "Right-handed",
+...     bowlingstyle: "Right-arm",
+...     team: "Mumbai Indians",
+...     matches_played: 166,
+...     runs: 4311,
+...     strike_rate: 148.66,
+...     wickets: 0
+...   },
+...   {
+...     playerid: 4,
+...     name: "Hardik Pandya",
+...     role: "All-rounder",
+...     battingstyle: "Right-handed",
+...     bowlingstyle: "Right-arm fast",
+...     team: "Mumbai Indians",
+...     matches_played: 152,
+...     runs: 2749,
+...     strike_rate: 146.24,
+...     wickets: 78
+...   }
+... ]);
+...
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68effa93aa9816d79acebea4'),
+    '1': ObjectId('68effa93aa9816d79acebea5'),
+    '2': ObjectId('68effa93aa9816d79acebea6'),
+    '3': ObjectId('68effa93aa9816d79acebea7')
+  }
+}
+cricket_database> db.player.find();
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm off break',
+    team: 'Mumbai Indians',
+    matches_played: 272,
+    runs: 7046,
+    strike_rate: 132.07,
+    wickets: 15
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea5'),
+    playerid: 2,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm fast',
+    team: 'Mumbai Indians',
+    matches_played: 142,
+    runs: 69,
+    strike_rate: null,
+    wickets: 181
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea6'),
+    playerid: 3,
+    name: 'Suryakumar Yadav',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm',
+    team: 'Mumbai Indians',
+    matches_played: 166,
+    runs: 4311,
+    strike_rate: 148.66,
+    wickets: 0
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea7'),
+    playerid: 4,
+    name: 'Hardik Pandya',
+    role: 'All-rounder',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm fast',
+    team: 'Mumbai Indians',
+    matches_played: 152,
+    runs: 2749,
+    strike_rate: 146.24,
+    wickets: 78
+  }
+]
+cricket_database> db.team.insertOne({
+...   teamid: 1,
+...   team_name: "Mumbai Indians",
+...   captain: "Hardik Pandya",
+...   players: ["Rohit Sharma", "Jasprit Bumrah", "Suryakumar Yadav", "Hardik Pandya"]
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68effb61aa9816d79acebea9')
+}
+cricket_database> db.matches.insertOne({
+...   match_id: 201,
+...   teams: ["Mumbai Indians", "Chennai Super Kings"],
+...   toss: "Mumbai Indians",
+...   match_time: ISODate("2025-04-10T14:00:00Z"),
+...   result: "Mumbai Indians won by 5 wickets"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68effba0aa9816d79acebeaa')
+}
+cricket_database> db.matches.insertOne({
+...   match_id: 205,
+...   teams: ["Mumbai Indians", "Delhi Capitals"],
+...   toss: "Delhi Capitals",
+...   match_time: ISODate("2025-05-01T14:00:00Z"),
+...   result: "Mumbai Indians won by 4 wickets"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68effbccaa9816d79acebeab')
+}
+cricket_database> db.matches.insertOne({
+...   match_id: 204,
+...   teams: ["Mumbai Indians", "Gujarat Titans"],
+...   toss: "Mumbai Indians",
+...   match_time: ISODate("2025-04-25T14:00:00Z"),
+...   result: "Gujarat Titans won by 12 runs"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68effbd6aa9816d79acebeac')
+}
+cricket_database> db.matches.insertMany([
+...   {
+...     match_id: 206,
+...     teams: ["Mumbai Indians", "Sunrisers Hyderabad"],
+...     toss: "Sunrisers Hyderabad",
+...     match_time: ISODate("2025-05-05T14:00:00Z"),
+...     result: "Sunrisers Hyderabad won by 6 wickets"
+...   },
+...   {
+...     match_id: 207,
+...     teams: ["Mumbai Indians", "Rajasthan Royals"],
+...     toss: "Mumbai Indians",
+...     match_time: ISODate("2025-05-10T14:00:00Z"),
+...     result: "Match cancelled due to heavy rains"
+...   }
+... ]);
+...
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68effc1eaa9816d79acebead'),
+    '1': ObjectId('68effc1eaa9816d79acebeae')
+  }
+}
+cricket_database> db.matches.find().pretty();
+[
+  {
+    _id: ObjectId('68effba0aa9816d79acebeaa'),
+    match_id: 201,
+    teams: [ 'Mumbai Indians', 'Chennai Super Kings' ],
+    toss: 'Mumbai Indians',
+    match_time: ISODate('2025-04-10T14:00:00.000Z'),
+    result: 'Mumbai Indians won by 5 wickets'
+  },
+  {
+    _id: ObjectId('68effbccaa9816d79acebeab'),
+    match_id: 205,
+    teams: [ 'Mumbai Indians', 'Delhi Capitals' ],
+    toss: 'Delhi Capitals',
+    match_time: ISODate('2025-05-01T14:00:00.000Z'),
+    result: 'Mumbai Indians won by 4 wickets'
+  },
+  {
+    _id: ObjectId('68effbd6aa9816d79acebeac'),
+    match_id: 204,
+    teams: [ 'Mumbai Indians', 'Gujarat Titans' ],
+    toss: 'Mumbai Indians',
+    match_time: ISODate('2025-04-25T14:00:00.000Z'),
+    result: 'Gujarat Titans won by 12 runs'
+  },
+  {
+    _id: ObjectId('68effc1eaa9816d79acebead'),
+    match_id: 206,
+    teams: [ 'Mumbai Indians', 'Sunrisers Hyderabad' ],
+    toss: 'Sunrisers Hyderabad',
+    match_time: ISODate('2025-05-05T14:00:00.000Z'),
+    result: 'Sunrisers Hyderabad won by 6 wickets'
+  },
+  {
+    _id: ObjectId('68effc1eaa9816d79acebeae'),
+    match_id: 207,
+    teams: [ 'Mumbai Indians', 'Rajasthan Royals' ],
+    toss: 'Mumbai Indians',
+    match_time: ISODate('2025-05-10T14:00:00.000Z'),
+    result: 'Match cancelled due to heavy rains'
+  }
+]
+cricket_database> db.player.find({ strike_rate:{$gt:100}, role:"Batter" })
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm off break',
+    team: 'Mumbai Indians',
+    matches_played: 272,
+    runs: 7046,
+    strike_rate: 132.07,
+    wickets: 15
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea6'),
+    playerid: 3,
+    name: 'Suryakumar Yadav',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm',
+    team: 'Mumbai Indians',
+    matches_played: 166,
+    runs: 4311,
+    strike_rate: 148.66,
+    wickets: 0
+  }
+]
+cricket_database> db.player.updateOne( { playerid: 1 }, { $inc: { runs: 100, matches_played: 2 } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+cricket_database> db.matches.deleteOne({match_id:206})
+{ acknowledged: true, deletedCount: 1 }
+cricket_database> db.matches.deleteMany({result:"Match cancelled due to heavy rains"})
+{ acknowledged: true, deletedCount: 1 }
+cricket_database> db.matches.find().pretty();
+[
+  {
+    _id: ObjectId('68effba0aa9816d79acebeaa'),
+    match_id: 201,
+    teams: [ 'Mumbai Indians', 'Chennai Super Kings' ],
+    toss: 'Mumbai Indians',
+    match_time: ISODate('2025-04-10T14:00:00.000Z'),
+    result: 'Mumbai Indians won by 5 wickets'
+  },
+  {
+    _id: ObjectId('68effbccaa9816d79acebeab'),
+    match_id: 205,
+    teams: [ 'Mumbai Indians', 'Delhi Capitals' ],
+    toss: 'Delhi Capitals',
+    match_time: ISODate('2025-05-01T14:00:00.000Z'),
+    result: 'Mumbai Indians won by 4 wickets'
+  },
+  {
+    _id: ObjectId('68effbd6aa9816d79acebeac'),
+    match_id: 204,
+    teams: [ 'Mumbai Indians', 'Gujarat Titans' ],
+    toss: 'Mumbai Indians',
+    match_time: ISODate('2025-04-25T14:00:00.000Z'),
+    result: 'Gujarat Titans won by 12 runs'
+  }
+]
+cricket_database> db.player.find({
+...   $and: [
+...     { role: "Batter" },
+...     { strike_rate: { $gt: 140 } }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea6'),
+    playerid: 3,
+    name: 'Suryakumar Yadav',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm',
+    team: 'Mumbai Indians',
+    matches_played: 166,
+    runs: 4311,
+    strike_rate: 148.66,
+    wickets: 0
+  }
+]
+cricket_database> db.player.find({
+...   $or: [
+...     { role: "All-rounder" },
+...     { runs: { $gt: 4000 } }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm off break',
+    team: 'Mumbai Indians',
+    matches_played: 274,
+    runs: 7146,
+    strike_rate: 132.07,
+    wickets: 15
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea6'),
+    playerid: 3,
+    name: 'Suryakumar Yadav',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm',
+    team: 'Mumbai Indians',
+    matches_played: 166,
+    runs: 4311,
+    strike_rate: 148.66,
+    wickets: 0
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea7'),
+    playerid: 4,
+    name: 'Hardik Pandya',
+    role: 'All-rounder',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm fast',
+    team: 'Mumbai Indians',
+    matches_played: 152,
+    runs: 2749,
+    strike_rate: 146.24,
+    wickets: 78
+  }
+]
+cricket_database> db.player.find({
+...   $nor: [
+...     { role: "All-rounder" },
+...     { role: "Bowler" }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm off break',
+    team: 'Mumbai Indians',
+    matches_played: 274,
+    runs: 7146,
+    strike_rate: 132.07,
+    wickets: 15
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea6'),
+    playerid: 3,
+    name: 'Suryakumar Yadav',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm',
+    team: 'Mumbai Indians',
+    matches_played: 166,
+    runs: 4311,
+    strike_rate: 148.66,
+    wickets: 0
+  }
+]
+cricket_database> db.player.find({
+...   strike_rate: { $not: { $gt: 140 } }
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68effa93aa9816d79acebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batter',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm off break',
+    team: 'Mumbai Indians',
+    matches_played: 274,
+    runs: 7146,
+    strike_rate: 132.07,
+    wickets: 15
+  },
+  {
+    _id: ObjectId('68effa93aa9816d79acebea5'),
+    playerid: 2,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    battingstyle: 'Right-handed',
+    bowlingstyle: 'Right-arm fast',
+    team: 'Mumbai Indians',
+    matches_played: 142,
+    runs: 69,
+    strike_rate: null,
+    wickets: 181
+  }
+]
+cricket_database>
