@@ -1,0 +1,212 @@
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68f0010c6c64715f67cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.1
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-15T11:36:55.512+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use company_detail;
+switched to db company_detail
+company_detail> show collections
+
+company_detail> use company_details;
+switched to db company_details
+company_details> show collections
+Employee_information
+company_details> db.Employee_information.find();
+[
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc52'),
+    ID: 1,
+    Experience_Years: 5,
+    Age: 28,
+    Gender: 'Female',
+    Salary: 250000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc53'),
+    ID: 2,
+    Experience_Years: 1,
+    Age: 21,
+    Gender: 'Male',
+    Salary: 50000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc54'),
+    ID: 3,
+    Experience_Years: 3,
+    Age: 23,
+    Gender: 'Female',
+    Salary: 170000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc55'),
+    ID: 4,
+    Experience_Years: 2,
+    Age: 22,
+    Gender: 'Male',
+    Salary: 25000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc56'),
+    ID: 5,
+    Experience_Years: 1,
+    Age: 17,
+    Gender: 'Male',
+    Salary: 10000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc57'),
+    ID: 6,
+    Experience_Years: 25,
+    Age: 62,
+    Gender: 'Male',
+    Salary: 5001000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc58'),
+    ID: 7,
+    Experience_Years: 19,
+    Age: 54,
+    Gender: 'Female',
+    Salary: 800000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc59'),
+    ID: 8,
+    Experience_Years: 2,
+    Age: 21,
+    Gender: 'Female',
+    Salary: 9000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5a'),
+    ID: 9,
+    Experience_Years: 10,
+    Age: 36,
+    Gender: 'Female',
+    Salary: 61500
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5b'),
+    ID: 10,
+    Experience_Years: 15,
+    Age: 54,
+    Gender: 'Female',
+    Salary: 650000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5c'),
+    ID: 11,
+    Experience_Years: 4,
+    Age: 26,
+    Gender: 'Female',
+    Salary: 250000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5d'),
+    ID: 12,
+    Experience_Years: 6,
+    Age: 29,
+    Gender: 'Male',
+    Salary: 1400000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5e'),
+    ID: 13,
+    Experience_Years: 14,
+    Age: 39,
+    Gender: 'Male',
+    Salary: 6000050
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc5f'),
+    ID: 14,
+    Experience_Years: 11,
+    Age: 40,
+    Gender: 'Male',
+    Salary: 220100
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc60'),
+    ID: 15,
+    Experience_Years: 2,
+    Age: 23,
+    Gender: 'Male',
+    Salary: 7500
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc61'),
+    ID: 16,
+    Experience_Years: 4,
+    Age: 27,
+    Gender: 'Female',
+    Salary: 87000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc62'),
+    ID: 17,
+    Experience_Years: 10,
+    Age: 34,
+    Gender: 'Female',
+    Salary: 930000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc63'),
+    ID: 18,
+    Experience_Years: 15,
+    Age: 54,
+    Gender: 'Female',
+    Salary: 7900000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc64'),
+    ID: 19,
+    Experience_Years: 2,
+    Age: 21,
+    Gender: 'Male',
+    Salary: 15000
+  },
+  {
+    _id: ObjectId('68f000f60cdd35f7f6f7bc65'),
+    ID: 20,
+    Experience_Years: 10,
+    Age: 36,
+    Gender: 'Male',
+    Salary: 330000
+  }
+]
+Type "it" for more
+company_details> var map1 = function() {
+...   emit(this.Gender, this.Salary);
+... };
+...
+
+company_details> var reduce1 = function(key, values) {
+...   return Array.sum(values);
+... };
+...
+
+company_details> db.employee_information.mapReduce(
+...   map1,
+...   reduce1,
+...   {
+...     out: "salary_by_gender"
+...   }
+... );
+...
+DeprecationWarning: Collection.mapReduce() is deprecated. Use an aggregation instead.
+See https://mongodb.com/docs/manual/core/map-reduce for details.
+{ result: 'salary_by_gender', ok: 1 }
+Company_sheet> db.salary_by_gender.find().pretty();
+[
+  { _id: 'Female', value: 36988500 },
+  { _id: 'Male', value: 35081650 }
+]
+Company_sheet>
