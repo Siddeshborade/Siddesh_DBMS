@@ -1,0 +1,124 @@
+from pymongo import MongoClient
+
+client = MongoClient("mongodb://localhost:27017/")
+db_input = input("Enter the database name: ")
+db = client[db_input]
+db_collection = input("Enter collection name: ")
+collection = db[db_collection]
+print("Collection created successfully.\n")
+
+while True:
+    print("\n--- PRODUCT MENU ---")
+    print("1. Insert a product")
+    print("2. Display all products")
+    print("3. Search product by PID")
+    print("4. Delete product by PID")
+    print("5. Exit")
+
+    try:
+        choice = int(input("Enter your choice: "))
+    except ValueError:
+        print("Please enter a valid number.")
+        continue
+
+    match choice:
+        case 1:
+            pid = int(input("Enter Product ID (pid): "))
+            pname = input("Enter Product Name (pname): ")
+            pprice = float(input("Enter Product Price (pprice): "))
+            record = {"pid": pid, "pname": pname, "pprice": pprice}
+            collection.insert_one(record)
+            print(" Product inserted successfully.")
+
+        case 2:
+            print("\n--- All Products ---")
+            for doc in collection.find():
+                print(f"PID: {doc['pid']} | Name: {doc['pname']} | Price: ₹{doc['pprice']}")
+            if collection.count_documents({}) == 0:
+                print("(No products found.)")
+
+        case 3:
+            search_pid = int(input("Enter PID to search: "))
+            result = collection.find_one({"pid": search_pid})
+            if result:
+                print(f" Product Found: PID={result['pid']}, Name={result['pname']}, Price=₹{result['pprice']}")
+            else:
+                print(" No product found with that PID.")
+
+        case 4:
+            delete_pid = int(input("Enter PID to delete: "))
+            result = collection.delete_one({"pid": delete_pid})
+            if result.deleted_count > 0:
+                print(" Product deleted successfully.")
+            else:
+                print(" No product found with that PID.")
+
+        case 5:
+            print(" Exiting program...")
+            break
+
+        case _:
+            print(" Invalid choice. Please try again.")
+
+
+Output:-
+Collection created successfully.
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+ Product inserted successfully.
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+ Product inserted successfully.
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+ Product inserted successfully.
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+
+--- All Products ---
+PID: 1 | Name: Wireless mouse | Price: ₹100.0
+PID: 2 | Name: usb keyboard | Price: ₹200.0
+PID: 3 | Name: Laptop stand | Price: ₹300.0
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+ Product Found: PID=2, Name=usb keyboard, Price=₹200.0
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
+ Product deleted successfully.
+
+--- PRODUCT MENU ---
+1. Insert a product
+2. Display all products
+3. Search product by PID
+4. Delete product by PID
+5. Exit
